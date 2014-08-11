@@ -1,7 +1,7 @@
 module ActionView
   module Helpers
     module Tags
-      [RadioButton,TextField, TextArea, CheckBox, Select].each do |kls|
+      [RadioButton,TextField,EmailField,TelField,PasswordField, TextArea, CheckBox, Select, ].each do |kls|
         kls.class_eval do
           def render_with_jq_rules
             @options[:data] ||= {}
