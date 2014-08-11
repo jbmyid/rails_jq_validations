@@ -20,10 +20,7 @@ module ClientValidation
     val_options = validator.options
     claz = "#{validator.class}".split("::").last
     rule = RULES_MAPING[claz]
-    puts "*"*100
-    puts claz
-    # debugger
-    if !rule.nil? && ![:if, :unless].any?{|cond| val_options[cond].present? } #validator.options[:if].present?
+    if !rule.nil? && ![:if, :unless].any?{|cond| val_options[cond].present? }
       case claz
       when "PresenceValidator"
         rules[:required] = true
