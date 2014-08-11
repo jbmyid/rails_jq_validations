@@ -2,7 +2,7 @@ require 'rails_jq_validations/util'
 module ClientValidation
   ALLOWES_VALIDATORS = [ActiveRecord::Validations::PresenceValidator]
 
-  RULES_MAPING = {"NumericalityValidator"=>{jq_rule: "number", error_type: :not_a_number}, "FormatValidator"=> {jq_rule: "regex", error_type: "invlaid"},"PresenceValidator"=> {jq_rule: "required", error_type: "blank"} }
+  RULES_MAPING = {"ExclusionValidator"=> {jq_rule: "exclusion", error_type: :exclusion},"LengthValidator"=> {jq_rule: nil, error_type: :length},"InclusionValidator"=> {jq_rule: "inclusion", error_type: :inclusion},"NumericalityValidator"=>{jq_rule: "number", error_type: :not_a_number}, "FormatValidator"=> {jq_rule: "regex", error_type: "invlaid"},"PresenceValidator"=> {jq_rule: "required", error_type: "blank"} }
   extend ActiveSupport::Concern
 
   def jq_validation_rules(atr)
@@ -17,30 +17,43 @@ module ClientValidation
   end
 
   def add_jq_rule(rules, validator, atr)
+    val_options = validator.options
     claz = "#{validator.class}".split("::").last
     rule = RULES_MAPING[claz]
     puts "*"*100
     puts claz
     # debugger
-    if !rule.nil? && ![:if, :unless].any?{|cond| validator.options[cond].present? } #validator.options[:if].present?
+    if !rule.nil? && ![:if, :unless].any?{|cond| val_options[cond].present? } #validator.options[:if].present?
       case claz
       when "PresenceValidator"
         rules[:required] = true
       when "FormatValidator"
-        rules[:regex] = Util.json_regexp(validator.options[:with])
+        rules[:regex] = Util.json_regexp(val_options[:with])
       when "NumericalityValidator"
-        if validator.options[:only_integer]
-          rules[:integer]= true
-        else
-          rules[:number] = true
+        rules[:number] = true
+        rules[:integer]= true if val_options[:only_integer]
+        [:greater_than_or_equal_to, :greater_than, :equal_to, :less_than, :less_than_or_equal_to, :odd, :even].each do |val_opt|
+          if val_options[val_opt]
+            rules[val_opt] = val_options[val_opt]
+            rules[:messages][val_opt] = errors.generate_message(atr, val_opt, count: val_options[val_opt])
+          end
         end
-
-      # else
-      #   rules[:email] = true
+      when "InclusionValidator"
+        rules[:inclusion] = val_options[:in].map(&:to_s)
+      when "ExclusionValidator"
+        rules[:exclusion] = val_options[:in].map(&:to_s)
+      when "LengthValidator"
+        [:is, :minimum, :maximum].each do |val_opt|
+          rules["length_#{val_opt}"] = val_options[val_opt] if val_options[val_opt]
+        end
       end
-      rules[:messages][rule[:jq_rule]] = ActiveModel::Errors.new(self).generate_message(atr, rule[:error_type])
+      rules[:messages][rule[:jq_rule]] = errors.generate_message(atr, rule[:error_type]) if rule[:jq_rule].present?
     end
     rules
+  end
+
+  def add_jq_error_messages
+    {presence: {message_type: "blank", jq_rule: "required"}, length: {message_type: "",opts: {minimum: true}}}
   end
 
   module ClassMethods
