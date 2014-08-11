@@ -1,4 +1,5 @@
-#=require "jquery.validation.min"
+#=require "rails_jq_validations/jquery.validation.min"
+#=require "rails_jq_validations/validators"
 
 @FormValidator = (form) ->
   @forms = form or $("form[data-validate=true]")
