@@ -29,7 +29,6 @@ module ClientValidation
       when "FormatValidator"
         rules[:regex] = Util.json_regexp(validator.options[:with])
       when "NumericalityValidator"
-        # debugger
         if validator.options[:only_integer]
           rules[:integer]= true
         else
