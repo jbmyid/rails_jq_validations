@@ -26,5 +26,5 @@ eg:
 
 Or you can specifcally add rules for jquery validations
 eg:
- <%f.text_field :name, data:{jq-rules: {required: true}.to_json}%>
+ <%= f.text_field :name, data:{jq-rules: {required: true}.to_json}%>
 Yes you are done!
