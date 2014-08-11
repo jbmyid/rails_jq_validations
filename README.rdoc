@@ -9,14 +9,22 @@ rails_jq_validations is a gem/plugin for Rails 4+ that enables client-side valid
 
 ===How to Use?
 
-add `gem 'rails_jq_validations'' in your gem file.
+add gem in gemfile 
+  gem 'rails_jq_validations'
 
 
 include js in your application.js
 
-//= require rails_jq_validations/form_validator
+  //= require rails_jq_validations/form_validator
 
 
 add `data: {validate: true}` in your form_for helper
+eg: 
+  <%= form_for @user, data: {validate: true} do |f| %>
+    <%= f.text_field :name  %>
+  <% end %>
 
+Or you can specifcally add rules for jquery validations
+eg:
+ <%f.text_field :name, data:{jq-rules: {required: true}.to_json}%>
 Yes you are done!
