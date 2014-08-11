@@ -9,9 +9,9 @@ Gem::Specification.new do |s|
   s.version     = RailsJqValidations::VERSION
   s.authors     = ["Jalendra Bhanarkar"]
   s.email       = ["jbmyid@gmail.com"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsJqValidations."
-  s.description = "TODO: Description of RailsJqValidations."
+  s.homepage    = "https://github.com/jbmyid/rails_jq_validations"
+  s.summary     = "Perform client side validation for model forms"
+  s.description = "A gem/plugin for rails 4+ that enables client side validation for basic model validators."
 
   s.files = Dir["{app,config,db,lib}/**/*", "MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]

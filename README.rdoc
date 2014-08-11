@@ -1,3 +1,22 @@
 = RailsJqValidations
 
-This project rocks and uses MIT-LICENSE.
+
+Automatic client-side validation using jquery validation plugin.
+
+What is this?
+
+rails_jq_validations is a gem/plugin for Rails 4+ that enables client-side validation using ActiveModel + jquery validation plugin. Once you bundle this gem on your app, the gem will automatically add the validation rules to form fields for jquery validation plugin.
+
+How to Use?
+
+add `gem 'rails_jq_validations'' in your gem file.
+
+
+include js in your application.js
+
+`//= require rails_jq_validations/form_validator`
+
+
+add `data: {validate: true}` in your form_for helper
+
+Yes you are done!
