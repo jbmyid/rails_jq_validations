@@ -28,8 +28,8 @@ module ClientValidation
         rules[:regex] = Util.json_regexp(val_options[:with])
       when "NumericalityValidator"
         rules[:number] = true
-        rules[:integer]= true if val_options[:only_integer]
-        [:greater_than_or_equal_to, :greater_than, :equal_to, :less_than, :less_than_or_equal_to, :odd, :even].each do |val_opt|
+        # rules[:integer]= true if val_options[:only_integer]
+        [:greater_than_or_equal_to, :only_integer, :greater_than, :equal_to, :less_than, :less_than_or_equal_to, :odd, :even].each do |val_opt|
           if val_options[val_opt]
             rules[val_opt] = val_options[val_opt]
             rules[:messages][val_opt] = errors.generate_message(atr, val_opt, count: val_options[val_opt])

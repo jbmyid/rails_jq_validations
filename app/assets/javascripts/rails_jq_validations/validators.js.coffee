@@ -5,8 +5,8 @@ $.validator.addMethod "regex", ((value, element, regexp) ->
   @optional(element) or re.test(value)
 ), "Please check your input."
 
-$.validator.addMethod "integer", ((value, element, param) ->
-  (value is parseInt(value, 10))
+$.validator.addMethod "only_integer", ((value, element, param) ->
+  (blank(value) or (value is String(parseInt(value, 10))))
 ), "Please enter a integer value!"
 
 $.validator.addMethod "absence", ((value, element, param) ->
