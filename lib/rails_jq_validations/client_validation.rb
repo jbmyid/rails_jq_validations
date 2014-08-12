@@ -1,7 +1,5 @@
 require 'rails_jq_validations/util'
 module ClientValidation
-  ALLOWES_VALIDATORS = [ActiveRecord::Validations::PresenceValidator]
-
   RULES_MAPING = {"ExclusionValidator"=> {jq_rule: "exclusion", error_type: :exclusion},"LengthValidator"=> {jq_rule: nil, error_type: :length},"InclusionValidator"=> {jq_rule: "inclusion", error_type: :inclusion},"NumericalityValidator"=>{jq_rule: "number", error_type: :not_a_number}, "FormatValidator"=> {jq_rule: "regex", error_type: "invlaid"},"PresenceValidator"=> {jq_rule: "required", error_type: "blank"} }
   extend ActiveSupport::Concern
 
