@@ -48,10 +48,6 @@ module ClientValidation
     rules
   end
 
-  def add_jq_error_messages
-    {presence: {message_type: "blank", jq_rule: "required"}, length: {message_type: "",opts: {minimum: true}}}
-  end
-
   module ClassMethods
 
   end
