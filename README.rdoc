@@ -10,7 +10,7 @@ rails_jq_validations is a gem/plugin for Rails 4+ that enables client-side valid
 ===How to Use?
 
 add gem in gemfile
-  gem 'rails_jq_validations'
+  gem 'rails_jq_validations', git: "git@github.com:jbmyid/rails_jq_validations.git"
 
 and run
   bundle install
@@ -51,3 +51,11 @@ eg:
   * maximum
 
 Yes you are done!
+
+= Contributing
+
+Fork it
+Create your feature branch (git checkout -b my-new-feature)
+Commit your changes (git commit -am 'Add some feature')
+Push to the branch (git push origin my-new-feature)
+Create new Pull Request
