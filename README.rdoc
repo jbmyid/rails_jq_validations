@@ -5,13 +5,15 @@ Automatic client-side validation using jquery validation plugin.
 
 === What is this?
 
-rails_jq_validations is a gem/plugin for Rails 4+ that enables client-side validation using ActiveModel + jquery validation plugin. Once you bundle this gem on your app, the gem will automatically add the validation rules to form fields for jquery validation plugin.
+rails_jq_validations is a gem/plugin for Rails 4+ that enables client-side validation using  jquery validation plugin. Once you bundle this gem on your app, the gem will automatically add the validation rules to form fields for jquery validation plugin.
 
 ===How to Use?
 
-add gem in gemfile 
+add gem in gemfile
   gem 'rails_jq_validations'
 
+and run
+  bundle install
 
 include js in your application.js
 
@@ -19,7 +21,7 @@ include js in your application.js
 
 
 add `data: {validate: true}` in your form_for helper
-eg: 
+eg:
   <%= form_for @user, data: {validate: true} do |f| %>
     <%= f.text_field :name  %>
   <% end %>
@@ -27,4 +29,25 @@ eg:
 Or you can specifcally add rules for jquery validations
 eg:
  <%= f.text_field :name, data:{jq-rules: {required: true}.to_json}%>
+
+
+===It includes following validations
+* presence
+* format
+* numericality
+  * greater_than_or_equal_to
+  * only_integer
+  * greater_than
+  * equal_to
+  * less_than
+  * less_than_or_equal_to
+  * odd
+  * even
+* inclusion
+* exclusion
+* length
+  * is
+  * minimum
+  * maximum
+
 Yes you are done!
